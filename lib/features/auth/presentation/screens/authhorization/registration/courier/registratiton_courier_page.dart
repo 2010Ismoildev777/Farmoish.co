@@ -1,0 +1,133 @@
+import 'package:farmoish/features/auth/data/datasource/firebase/auth/registration.dart';
+import 'package:farmoish/features/auth/presentation/components/button/my_button.dart';
+import 'package:farmoish/features/auth/presentation/components/field/my_text_field.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class RegistratitonCourierPage extends ConsumerStatefulWidget {
+  final String selectedRole;
+  const RegistratitonCourierPage({super.key, required this.selectedRole});
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _RegistratitonCourierPageState();
+}
+
+class _RegistratitonCourierPageState
+    extends ConsumerState<RegistratitonCourierPage> {
+  TextEditingController fullNameController = TextEditingController();
+  TextEditingController emailAddresController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    final register = ref.watch(registrationProvider);
+
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back, size: 25),
+        ),
+        centerTitle: true,
+        title: Text(
+          'Регистрация курьера',
+          style: TextStyle(fontWeight: FontWeight.w900),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Полное Имя',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
+            SizedBox(height: 5),
+            MyTextField(
+              controller: fullNameController,
+              keyboardType: TextInputType.name,
+              hintText: 'Введите ваше полное имя',
+              icon: Icons.person,
+            ),
+            SizedBox(height: 20),
+            Text(
+              'Адрес электронной почты',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
+            SizedBox(height: 5),
+            MyTextField(
+              controller: emailAddresController,
+              keyboardType: TextInputType.emailAddress,
+              hintText: 'Введите ваш email',
+              icon: Icons.email,
+            ),
+            SizedBox(height: 20),
+            Text(
+              'Создайте пароль',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
+            SizedBox(height: 5),
+            MyTextField(
+              controller: passwordController,
+              keyboardType: TextInputType.visiblePassword,
+              hintText: 'Введите пароль',
+              icon: Icons.lock,
+              isPassword: true,
+            ),
+            SizedBox(height: 20),
+            MyButton(
+              onPressed: () async {
+                await ref
+                    .read(registrationProvider.notifier)
+                    .signUp(
+                      fullNameController.text.trim(),
+                      emailAddresController.text.trim(),
+                      passwordController.text.trim(),
+                      widget.selectedRole,
+                    );
+                final state = ref.watch(registrationProvider);
+                state.when(
+                  data: (data) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(''),
+                        backgroundColor: Colors.green,
+                        behavior: SnackBarBehavior.floating,
+                      ),
+                    );
+                  },
+                  error: (error, stackTrace) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(error.toString()),
+                        backgroundColor: Colors.red,
+                        behavior: SnackBarBehavior.floating,
+                      ),
+                    );
+                  },
+                  loading: () {},
+                );
+              },
+              child: register.isLoading
+                  ? CupertinoActivityIndicator(color: Colors.white)
+                  : Text(
+                      'Зарегистрироваться',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                    ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

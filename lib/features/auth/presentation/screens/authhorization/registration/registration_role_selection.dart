@@ -1,4 +1,7 @@
-import 'package:farmoish/features/auth/presentation/components/button/my_button.dart';
+import 'package:farmoish/features/auth/presentation/components/button/navigator_button.dart';
+import 'package:farmoish/features/auth/presentation/screens/authhorization/registration/customer/registratiton_customer_page.dart';
+import 'package:farmoish/features/auth/presentation/screens/authhorization/registration/courier/registratiton_courier_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
@@ -7,12 +10,15 @@ class RegistrationRoleSelection extends ConsumerStatefulWidget {
   const RegistrationRoleSelection({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _RegistrationRoleSelectionState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _RegistrationRoleSelectionState();
 }
 
-class _RegistrationRoleSelectionState extends ConsumerState<RegistrationRoleSelection> {
+class _RegistrationRoleSelectionState
+    extends ConsumerState<RegistrationRoleSelection> {
   @override
   Widget build(BuildContext context) {
+    String? selectedRole;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
@@ -30,7 +36,7 @@ class _RegistrationRoleSelectionState extends ConsumerState<RegistrationRoleSele
                       children: [
                         Lottie.asset('images/lottie/car.json', width: 150),
                         Text(
-                          'SwiftShip',
+                          'Farmoish',
                           style: TextStyle(
                             fontWeight: FontWeight.w900,
                             fontSize: 26,
@@ -39,7 +45,7 @@ class _RegistrationRoleSelectionState extends ConsumerState<RegistrationRoleSele
                       ],
                     ),
                     Text(
-                      'Create Your Account',
+                      'Создайте свой аккаунт',
                       style: TextStyle(
                         fontWeight: FontWeight.w900,
                         fontSize: 32,
@@ -47,20 +53,40 @@ class _RegistrationRoleSelectionState extends ConsumerState<RegistrationRoleSele
                     ),
                     SizedBox(height: 10),
                     Text(
-                      'Choose your role to get started',
+                      'Выберите свою роль, чтобы начать',
                       style: TextStyle(color: Colors.grey),
                     ),
                     SizedBox(height: 20),
-                    MyButton(
+                    NavigatorButton(
                       backgroundColor: Color(0xFF4AAB4E),
-                      onPressed: () {},
-                      text: "I'm a Courier",
+                      onPressed: () {
+                        setState(() {
+                          selectedRole = 'courier';
+                        });
+                        Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) => RegistratitonCourierPage(selectedRole: selectedRole!,),
+                          ),
+                        );
+                      },
+                      text: "Я курьер",
                     ),
                     SizedBox(height: 10),
-                    MyButton(
+                    NavigatorButton(
                       backgroundColor: Color(0xFF2196F3),
-                      onPressed: () {},
-                      text: "I'm a Customer",
+                      onPressed: () {
+                        setState(() {
+                          selectedRole = 'customer';
+                        });
+                        Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) => RegistratitonCustomerPage(selectedRole: selectedRole!),
+                          ),
+                        );
+                      },
+                      text: "Я клиент",
                     ),
                   ],
                 ),
@@ -68,9 +94,9 @@ class _RegistrationRoleSelectionState extends ConsumerState<RegistrationRoleSele
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Already have an account? ', style: TextStyle()),
+                    Text('Уже есть аккаунт? ', style: TextStyle()),
                     Text(
-                      'Log In',
+                      'Войти',
                       style: TextStyle(
                         color: Color(0xFF2196F3),
                         fontWeight: FontWeight.w900,
