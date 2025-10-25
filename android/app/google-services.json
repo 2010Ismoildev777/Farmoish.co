@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "517809530409",
+    "project_id": "farmoish-flutter",
+    "storage_bucket": "farmoish-flutter.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:517809530409:android:106ccfbd8d1062468cde38",
+        "android_client_info": {
+          "package_name": "com.example.farmoish"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCj5IlZVhM7keClPR6LKHSAJh5U60Ntycg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
