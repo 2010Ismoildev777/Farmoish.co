@@ -52,7 +52,7 @@ class _MyTextFieldState extends State<MyTextField> {
           borderRadius: BorderRadius.circular(8),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xFF577FA0), width: 1.5),
+          borderSide: BorderSide(color: Colors.green, width: 1.5),
           borderRadius: BorderRadius.circular(8),
         ),
       ),

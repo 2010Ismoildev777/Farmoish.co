@@ -1,6 +1,7 @@
 import 'package:farmoish/features/auth/presentation/components/button/navigator_button.dart';
-import 'package:farmoish/features/auth/presentation/screens/authhorization/registration/customer/registratiton_customer_page.dart';
-import 'package:farmoish/features/auth/presentation/screens/authhorization/registration/courier/registratiton_courier_page.dart';
+import 'package:farmoish/features/auth/presentation/screens/login/login_page.dart';
+import 'package:farmoish/features/auth/presentation/screens/registration/customer/registratiton_customer_page.dart';
+import 'package:farmoish/features/auth/presentation/screens/registration/courier/registratiton_courier_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,8 +27,8 @@ class _RegistrationRoleSelectionState
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Spacer(),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -48,8 +49,9 @@ class _RegistrationRoleSelectionState
                       'Создайте свой аккаунт',
                       style: TextStyle(
                         fontWeight: FontWeight.w900,
-                        fontSize: 32,
+                        fontSize: 28,
                       ),
+                      textAlign: TextAlign.center,
                     ),
                     SizedBox(height: 10),
                     Text(
@@ -66,10 +68,14 @@ class _RegistrationRoleSelectionState
                         Navigator.push(
                           context,
                           CupertinoPageRoute(
-                            builder: (context) => RegistratitonCourierPage(selectedRole: selectedRole!,),
+                            builder: (context) => RegistratitonCourierPage(
+                              selectedRole: selectedRole!,
+                            ),
                           ),
                         );
                       },
+                      image: 'images/image/courier.png',
+                      imageColor: Colors.white,
                       text: "Я курьер",
                     ),
                     SizedBox(height: 10),
@@ -82,24 +88,36 @@ class _RegistrationRoleSelectionState
                         Navigator.push(
                           context,
                           CupertinoPageRoute(
-                            builder: (context) => RegistratitonCustomerPage(selectedRole: selectedRole!),
+                            builder: (context) => RegistratitonCustomerPage(
+                              selectedRole: selectedRole!,
+                            ),
                           ),
                         );
                       },
+                      image: 'images/image/customer.png',
+                      imageColor: Colors.white,
                       text: "Я клиент",
                     ),
                   ],
                 ),
-                Spacer(),
+                SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text('Уже есть аккаунт? ', style: TextStyle()),
-                    Text(
-                      'Войти',
-                      style: TextStyle(
-                        color: Color(0xFF2196F3),
-                        fontWeight: FontWeight.w900,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          CupertinoPageRoute(builder: (context) => LoginPage()),
+                        );
+                      },
+                      child: Text(
+                        'Войти',
+                        style: TextStyle(
+                          color: Color(0xFF2196F3),
+                          fontWeight: FontWeight.w900,
+                        ),
                       ),
                     ),
                   ],

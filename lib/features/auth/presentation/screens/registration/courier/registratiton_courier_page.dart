@@ -1,27 +1,30 @@
-import 'package:farmoish/features/auth/data/datasource/firebase/auth/registration.dart';
+import 'package:farmoish/features/auth/data/datasource/firebase/auth/register/registration.dart';
 import 'package:farmoish/features/auth/presentation/components/button/my_button.dart';
 import 'package:farmoish/features/auth/presentation/components/field/my_text_field.dart';
+import 'package:farmoish/features/auth/presentation/screens/home/courier/courier_home_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RegistratitonCustomerPage extends ConsumerStatefulWidget {
+class RegistratitonCourierPage extends ConsumerStatefulWidget {
   final String selectedRole;
-  const RegistratitonCustomerPage({super.key, required this.selectedRole});
+  const RegistratitonCourierPage({super.key, required this.selectedRole});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _RegistratitonCustomerPageState();
+      _RegistratitonCourierPageState();
 }
 
-class _RegistratitonCustomerPageState
-    extends ConsumerState<RegistratitonCustomerPage> {
+class _RegistratitonCourierPageState
+    extends ConsumerState<RegistratitonCourierPage> {
   TextEditingController fullNameController = TextEditingController();
   TextEditingController emailAddresController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final register = ref.watch(registrationProvider);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -34,7 +37,7 @@ class _RegistratitonCustomerPageState
         ),
         centerTitle: true,
         title: Text(
-          'Регистрация клиента',
+          'Регистрация курьера',
           style: TextStyle(fontWeight: FontWeight.w900),
         ),
       ),
@@ -54,36 +57,6 @@ class _RegistratitonCustomerPageState
                 keyboardType: TextInputType.name,
                 hintText: 'Введите ваше полное имя',
                 icon: Icons.person,
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Номер телефона',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-              ),
-              SizedBox(height: 5),
-              TextField(
-                controller: fullNameController,
-                keyboardType: TextInputType.numberWithOptions(),
-                decoration: InputDecoration(
-                  hintText: 'Введите ваш номер телефона',
-                  hintStyle: TextStyle(
-                    color: Color(0xFF577FA0),
-                    fontWeight: FontWeight.w500,
-                  ),
-                  prefixIcon: Icon(Icons.phone, color: Color(0xFF577FA0)),
-                  suffixIcon: IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.send, size: 25, color: Color(0xFF138AEC)),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFF577FA0), width: 1.5),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFF577FA0), width: 1.5),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
               ),
               SizedBox(height: 20),
               Text(
@@ -111,6 +84,19 @@ class _RegistratitonCustomerPageState
                 isPassword: true,
               ),
               SizedBox(height: 20),
+              Text(
+                'Подтвердите пароль',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ),
+              SizedBox(height: 5),
+              MyTextField(
+                controller: confirmPasswordController,
+                keyboardType: TextInputType.visiblePassword,
+                hintText: 'Повторите пароль',
+                icon: Icons.lock,
+                isPassword: true,
+              ),
+              SizedBox(height: 20),
               MyButton(
                 onPressed: () async {
                   await ref
@@ -119,6 +105,7 @@ class _RegistratitonCustomerPageState
                         fullNameController.text.trim(),
                         emailAddresController.text.trim(),
                         passwordController.text.trim(),
+                        confirmPasswordController.text.trim(),
                         widget.selectedRole,
                       );
                   final state = ref.watch(registrationProvider);
@@ -126,10 +113,17 @@ class _RegistratitonCustomerPageState
                     data: (data) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text(''),
+                          content: Text('Регистрация прошла успешно'),
                           backgroundColor: Colors.green,
                           behavior: SnackBarBehavior.floating,
                         ),
+                      );
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => CourierHomePage(),
+                        ),
+                        (route) => false,
                       );
                     },
                     error: (error, stackTrace) {
@@ -147,12 +141,13 @@ class _RegistratitonCustomerPageState
                 child: register.isLoading
                     ? CupertinoActivityIndicator(color: Colors.white)
                     : Text(
-                        'Зарегистрироваться',
+                        'Зарегистрироваться как курьер',
                         style: TextStyle(
                           fontWeight: FontWeight.w900,
                           color: Colors.white,
                           fontSize: 18,
                         ),
+                        textAlign: TextAlign.center,
                       ),
               ),
             ],
