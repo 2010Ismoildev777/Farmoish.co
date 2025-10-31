@@ -1,7 +1,7 @@
 import 'package:farmoish/features/auth/presentation/components/button/navigator_button.dart';
-import 'package:farmoish/features/auth/presentation/screens/login/login_page.dart';
-import 'package:farmoish/features/auth/presentation/screens/registration/customer/registratiton_customer_page.dart';
-import 'package:farmoish/features/auth/presentation/screens/registration/courier/registratiton_courier_page.dart';
+import 'package:farmoish/features/auth/presentation/screens/register/login/login_page.dart';
+import 'package:farmoish/features/auth/presentation/screens/register/registration/customer/registratiton_customer_page.dart';
+import 'package:farmoish/features/auth/presentation/screens/register/registration/courier/registratiton_courier_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

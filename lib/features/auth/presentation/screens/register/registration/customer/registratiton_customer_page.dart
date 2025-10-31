@@ -4,7 +4,7 @@ import 'package:farmoish/features/auth/data/datasource/firebase/auth/register/re
 import 'package:farmoish/features/auth/presentation/components/button/my_button.dart';
 import 'package:farmoish/features/auth/presentation/components/button/navigator_button.dart';
 import 'package:farmoish/features/auth/presentation/components/field/my_text_field.dart';
-import 'package:farmoish/features/auth/presentation/screens/home/customer/customer_home_page.dart';
+import 'package:farmoish/features/auth/presentation/screens/home/customer/map/map_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -127,7 +127,7 @@ class _RegistratitonCustomerPageState
                       Navigator.pushAndRemoveUntil(
                         context,
                         CupertinoPageRoute(
-                          builder: (context) => CustomerHomePage(),
+                          builder: (context) => MapScreen(),
                         ),
                         (route) => false,
                       );
@@ -186,7 +186,7 @@ class _RegistratitonCustomerPageState
                       Navigator.pushAndRemoveUntil(
                         context,
                         CupertinoPageRoute(
-                          builder: (context) => CustomerHomePage(),
+                          builder: (context) => MapScreen(),
                         ),
                         (route) => false,
                       );
@@ -226,7 +226,7 @@ class _RegistratitonCustomerPageState
                       Navigator.pushAndRemoveUntil(
                         context,
                         CupertinoPageRoute(
-                          builder: (context) => CustomerHomePage(),
+                          builder: (context) => MapScreen(),
                         ),
                         (route) => false,
                       );

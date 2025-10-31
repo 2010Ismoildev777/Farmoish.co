@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farmoish/features/auth/presentation/screens/home/courier/courier_home_page.dart';
-import 'package:farmoish/features/auth/presentation/screens/home/customer/customer_home_page.dart';
+import 'package:farmoish/features/auth/presentation/screens/home/customer/map/map_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +42,7 @@ class LoginNotifier extends StateNotifier<AsyncValue> {
         print('User role: $role');
         Navigator.pushAndRemoveUntil(
           context,
-          CupertinoPageRoute(builder: (context) => CustomerHomePage()),
+          CupertinoPageRoute(builder: (context) => MapScreen()),
           (route) => false,
         );
       } else if (role == 'courier') {

@@ -1,7 +1,7 @@
 import 'package:farmoish/features/auth/data/datasource/firebase/auth/login/login.dart';
 import 'package:farmoish/features/auth/presentation/components/button/my_button.dart';
 import 'package:farmoish/features/auth/presentation/components/field/my_text_field.dart';
-import 'package:farmoish/features/auth/presentation/screens/forgot/forgot_password_page.dart';
+import 'package:farmoish/features/auth/presentation/screens/register/forgot/forgot_password_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
